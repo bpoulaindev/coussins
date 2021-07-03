@@ -1,39 +1,30 @@
 let numCoussin = 1;
-
 $(document).ready(() => {
   $('#addCoussin').click(() => {
-    if (numCoussin != 10) {
-      if(numCoussin === 9) {
-        $('#addCoussin').addClass('d-none')
-      }
-      $('#deleteCoussin').removeClass('d-none')
-      numCoussin += 1;
-      $('#numCoussin').text(numCoussin.toString())
-      changeBackground(numCoussin)
-    }
+    updateCoussin(1)
   });
   $('#deleteCoussin').click(() => {
-    if (numCoussin != 1) {
-      if(numCoussin === 2) {
-        $('#deleteCoussin').addClass('d-none')
-      }
-      $('#addCoussin').removeClass('d-none')
-      numCoussin += -1;
-      $('#numCoussin').text(numCoussin.toString())
-      changeBackground(numCoussin)
+    updateCoussin(-1)
+  });
+  function updateCoussin(order) {
+    numCoussin += order;
+    $('#numCoussin').text(numCoussin.toString())
+    if (numCoussin === 1) {
+      $('#deleteCoussin').addClass('d-none')
+    } else if (numCoussin === 10) {
+      $('#addCoussin').addClass('d-none')
     } else {
       $('#deleteCoussin').removeClass('d-none')
+      $('#addCoussin').removeClass('d-none')
     }
-  });
-  function changeBackground(num) {
-    $('#mainImg').attr('src', `./img/${num}.png`)
-    switch(parseInt(num) % 2) {
-      case 0:
-        $('#coussinCard').addClass('bg-pink')
-        break;
-      case 1:
-        $('#coussinCard').removeClass('bg-pink')
-        break;
+    changeBackground()
+  }
+  function changeBackground() {
+    $('#mainImg').attr('src', `./img/${numCoussin}.png`)
+    if ((parseInt(numCoussin) % 2) === 0) {
+      $('#coussinCard').addClass('bg-pink')
+    } else {
+      $('#coussinCard').removeClass('bg-pink')
     }
   }
 });
